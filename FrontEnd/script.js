@@ -86,3 +86,8 @@ function getProjects(projectList) {
 }
 
 main();
+
+
+/*button.addEventListener('click', () => {
+    const allCategories = 
+    }) */

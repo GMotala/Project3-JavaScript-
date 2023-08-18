@@ -17,15 +17,12 @@ async function getProjectList() {
         const img = document.createElement('img'); // creates img tag
         const figcaption = document.createElement('figcaption'); // creates figcaption tag
        
-
         // adds the classes to the new element created above
         figure.setAttribute("style", '');
         figure.setAttribute("class", "figureClassName");
         figure.setAttribute("data-categoryId", projectList[i].categoryId);
-        
         figcaption.setAttribute("class", "figcaptionClassName");
         
-
         // fetch the value from the API object
         img.src = projectList[i].imageUrl;
         img.alt = projectList[i].title;
@@ -52,24 +49,28 @@ function filterByCategory(selectedCategory) {
     };
 };
 
-        // create category attribute within each figure -->  dataset attribute
+// 2.2user authentification --> POST
 
-        // loop through the categories
-        // create button element and append to figure add data attribute --> added class instead
-/*
-        const button = document.createElement('button'); // creates button tag
-        button.setAttribute("class", "buttonClassName")
+const form = document.querySelector("form");
+form.addEventListener("submit", async (e) => {
+    const formEmail = document.getElementById("email").value;
+    const formPassword = document.getElementById("password").value;
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:5678/api/users/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ formEmail, formPassword }),
+    });
+    console.log("hi");
+    if (response.ok) {
+        const responseData = response.json();
+        window.localStorage.setItem('accessToken', responseData.token);
+        window.location.assign("index.html")
     }
-
-
-}*/
-
-/* 
-// Button to filter
-// const button = document.getElementById('button');
-// QUESTION: button is defined in the function above, so can I carry it over to this function ? It is now in the DOM so yes, it already exists. 
-// let buttons = document.querySelectorAll('.button'); // finding the button on each figure - but they will all be the same */
-
-/*button.addEventListener('click', () => {
-    const allCategories = 
-    }) */
+    else {
+        const connexion = document.querySelector("div");
+        const error = document.createElement("p");
+        error.innerText = "authentification error";
+    }
+});
