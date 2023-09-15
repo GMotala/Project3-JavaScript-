@@ -41,7 +41,7 @@ getProjects(filter);
 async function getProjects(filter) {
     const reponse = await fetch("http://localhost:5678/api/works/");
     projects = await reponse.json();
-
+    
     let objectButton = []; //Initialisation
     switch (
     filter //switch to filter
@@ -49,7 +49,7 @@ async function getProjects(filter) {
         case "All":
             objectButton = projects.filter((projects) => projects.categoryId);
             break;
-        case "objets": // if "filter" = "objets"
+        case "Objets": // if "filter" = "objets"
             objectButton = projects.filter((projects) => projects.categoryId == 1);
             break;
         case "Appartements":
@@ -65,7 +65,7 @@ async function getProjects(filter) {
     for (let i = 0; i < objectButton.length; i++) {
         const figure = objectButton[i];
         // DOM element
-        const divGallery = document.querySelector(".gallery2");
+        const divGallery = document.querySelector(".gallery");
         // Creation of tags for figures
         const projectsElement = document.createElement("figure");
         // Creation of tags
@@ -81,28 +81,38 @@ async function getProjects(filter) {
         projectsElement.appendChild(nameElement);
     }
 }
+
 const buttonObject = document.querySelector("button");
 
 allButton.addEventListener("click", function () {
-    document.querySelector(".gallery2").innerHTML = "";
+    document.querySelector(".gallery").innerHTML = "";
     filter = "All";
     getProjects(filter);
 });
 objectButton.addEventListener("click", function () {
-    document.querySelector(".gallery2").innerHTML = "";
+    document.querySelector(".gallery").innerHTML = "";
     filter = "Objets";
     getProjects(filter);
 
 });
 
 appartmentButton.addEventListener("click", function () {
-    document.querySelector(".gallery2").innerHTML = "";
+    document.querySelector(".gallery").innerHTML = "";
     filter = "Appartements";
     getProjects(filter);
 });
 
 hotelButton.addEventListener("click", function () {
-    document.querySelector(".gallery2").innerHTML = "";
+    document.querySelector(".gallery").innerHTML = "";
     filter = "Hôtels & restaurants";
     getProjects(filter);
 });
+
+/*for (let i = 0; i < projectList.length; i++) {
+if (buttonCategory == projectList[i].categoryId) {
+}*/
+
+// create function that will add the button via a loop
+
+
+/* ----------- THE MODALS ----------- */

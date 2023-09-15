@@ -1,0 +1,48 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#modalOverlay {
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    height: 1000px;
+    width: 100%;
+    opacity: 0.2;
+}
+
+
+.modalPopup {
+    overflow: auto;
+    background-color: white;
+    width: 400px;
+    height: 200px;
+    padding: 20px;
+}
+
+
+/*.modal1.modalPopUp{
+    width: 100px;
+    height: 100px;
+    background: yellow;
+    transition: width .7s, height .7s;
+}
+
+.modal2 {
+    background-color: blue;
+}
+
+/*.modalContainer {
+    overflow: auto;
+    width: 600px;
+    max-width: calc(100vh - 20px);
+    max-height: calc(100vh - 20px);
+    padding: 20px;
+    background-color: white;
+}*/
