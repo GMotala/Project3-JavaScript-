@@ -45,13 +45,24 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-			<a href="#" class="js-modal modifier" onclick="openModal()">
-				<i class="fa-regular fa-pen-to-square"></i>modifier
-			</a>
+			<div class="js-modal modifier" onclick="openModal()">
+				<i class="fa-solid fa-pen-to-square"></i>
+			<a href="#">Modifier</a>
+			</div>
+
+			<div class="admin__modifer" aria-hidden="true" style="display: none;">
+				<i class="fa-solid fa-pen-to-square"></i>
+				<a href="#modale" class="js-modale">Modifier</a>
+			</div>
 			<div id="modalOverlay"> <!-- the overlay that controls the display -->
-					<aside class="modalPopup" id="modal1" aria-hidden="true" > <!-- the modal -->
+					<aside class="modalPopup" id="modal1" aria-hidden="true"  > <!-- the modal -->
+						<div class="button-container">
+							<a href="#" class="modal-close" title="Fermer la fenètre">
+								<img src="assets/icons/close.svg" alt="Close window cross">
+							</a>
+						</div>
 						<div class ="modal-wrapper js-modal-stop">
-							<button onclick="closeModal()" class="js-modal-close">Close modale</button>
+							<button onclick="closeModal()" class="js-modal-close" >Close modale</button>
 							<span class="close" id="close-modal-1">
 								<i class="fa-regular fa-xmark"></i>
 							</span>
@@ -66,6 +77,7 @@
 					<nav class="buttons"></nav>
 				</div>
 				<div class="gallery"></div> <!-- fetched dynamically by JS-->
+			</div>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>

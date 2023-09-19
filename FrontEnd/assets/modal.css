@@ -9,40 +9,49 @@ html {
 }
 
 #modalOverlay {
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.5);
+    /* z-index: 1;
     display: none;
-    height: 1000px;
+    opacity: 0.2;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    opacity: 0.2;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
+.modifier {
+    margin: 10px;
+}
 
 .modalPopup {
-    overflow: auto;
+/*display: flex;
+    justify-content: space-between;*/
     background-color: white;
-    width: 400px;
-    height: 200px;
-    padding: 20px;
+    max-width: 630px;
+    border: 1px solid grey;
+    margin: 0 auto;
+    border-radius: 10px;
+    width: 100%
 }
 
-
-/*.modal1.modalPopUp{
-    width: 100px;
-    height: 100px;
-    background: yellow;
-    transition: width .7s, height .7s;
+.modalPopup h2 {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 50px 0
 }
 
-.modal2 {
-    background-color: blue;
+.button-container {
+font: 500 16px "Syne";
+    color: #ffffff;
+    border: 1px solid #1d6154;
+    border-radius: 60px;
+    padding: 9px 46px;
+    margin-bottom: 24px;
+    background-color: #1d6154
 }
 
-/*.modalContainer {
-    overflow: auto;
-    width: 600px;
-    max-width: calc(100vh - 20px);
-    max-height: calc(100vh - 20px);
-    padding: 20px;
-    background-color: white;
-}*/
