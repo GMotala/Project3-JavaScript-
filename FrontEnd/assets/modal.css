@@ -125,9 +125,9 @@ font: 500 16px "Syne";
 .modalButtonsTop {
     display: flex;
     flex-direction: row;
-    justify-content: space-between; /* TO CORRECT */
+    justify-content: space-between; /* TO CORRECT TO MAKE AT OPPOSITE SIDES*/
     align-content: flex-start;
-    flex-flow: column wrap;
+    flex-flow: row-reverse;
 }
 
 .inputForm {
@@ -145,17 +145,23 @@ font: 500 16px "Syne";
     margin-bottom: 20px;
 }
 .imgColours{
-font-family: 'Syne';
-font-weight: 700;
-font-size: 14px;
-color: white;
-background-color: #1D6154;
-border: 1px solid #1D6154;
-padding: 10px 50px;
-margin : 2em auto 30px;
-width: auto;
-text-align: center;
-border-radius: 60px
+    text-decoration: none;
+    font-family: "Syne";
+    font-weight: 400;
+    font-size: 14px;
+    text-align: center;
+}
+
+#accessFileSystemBtn {
+    font-family: "Syne";
+    color: #114e4dfc;
+    background: #a7a7a775;
+    border-radius: 60px;
+    padding: 1Opx 50px;
+    margin: 20px;
+    width: 165x;
+    height: 35px;
+
 }
 
 #modalTitle {

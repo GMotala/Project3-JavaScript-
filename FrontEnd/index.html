@@ -11,6 +11,7 @@
 		rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="https://kit.fontawesome.com/4870ebed7a.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="./assets/modal.css">
 
 </head>
@@ -18,7 +19,7 @@
 <body>
 	<header>
 		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
-		<nav>fa-regular fa-trash-can
+		<nav>
 			<ul>
 				<li>projets</li>
 				<li>contact</li>
@@ -45,39 +46,15 @@
 		</section>
 		<section id="portfolio">
 			<h2>Mes Projets</h2>
-			<div class="js-modal modifier" onclick="openModal()">
+			<div id="btn_modifier">
 				<i class="fa-solid fa-pen-to-square"></i>
-			<a href="#">Modifier</a>
+				<a href="#">Modifier</a> 
 			</div>
+			<div class="filtres">
+				<nav class="buttons"></nav>
+			</div>
+			<div class="gallery"></div> <!-- fetched dynamically by JS-->
 
-			<div class="admin__modifer" aria-hidden="true" style="display: none;">
-				<i class="fa-solid fa-pen-to-square"></i>
-				<a href="#modale" class="js-modale">Modifier</a>
-			</div>
-			<div id="modalOverlay"> <!-- the overlay that controls the display -->
-					<aside class="modalPopup" id="modal1" aria-hidden="true"  > <!-- the modal -->
-						<div class="button-container">
-							<a href="#" class="modal-close" title="Fermer la fenètre">
-								<img src="assets/icons/close.svg" alt="Close window cross">
-							</a>
-						</div>
-						<div class ="modal-wrapper js-modal-stop">
-							<button onclick="closeModal()" class="js-modal-close" >Close modale</button>
-							<span class="close" id="close-modal-1">
-								<i class="fa-regular fa-xmark"></i>
-							</span>
-							<h2>Galerie photo</h2>
-							<div class="worksContainer"></div>
-							<div class="separator"></div>
-							<span class="addWork">Ajouter une photo</span>
-							<p>Supprimer la galerie</p>
-						</div>
-					</aside>
-				<div class="filtres">
-					<nav class="buttons"></nav>
-				</div>
-				<div class="gallery"></div> <!-- fetched dynamically by JS-->
-			</div>
 		</section>
 		<section id="contact">
 			<h2>Contact</h2>
@@ -93,7 +70,6 @@
 			</form>
 		</section>
 	</main>
-
 	<footer>
 		<nav>
 			<ul>
@@ -101,7 +77,61 @@
 			</ul>
 		</nav>
 	</footer>
+	<!-- modal-->
+	<div id="modalOverlay"> <!-- the overlay that controls the display -->
+		<aside class="modalPopup" id="modal1" aria-hidden="true"> <!-- the modal -->
+			<div class="button-container"> <!-- button to test event handler -->
+				<a href="#" id="event-modal-close">
+					X
+				</a>
+			</div>
+			<div class="modal-wrapper js-modal-stop">
+				 <!-- <span class="close"> <i class="fa-regular fa-xmark"></i></span> DELETE BECAUSE DO NOT NEED CLOSE BUTTON ON MODAL WRAPPER?? --> 
+				<h2>Galerie photo</h2>
+				<div id="worksContainerContainer">
+				<div id="modal_worksContainer"></div> <!-- fetches works dynamically-->
+				<button id="btn_addWork">Ajouter une photo</button>
+				<!-- second modal --> <!-- will contain form for 'ajout photo form' in CSS will be display:none -->
+				<div id="modal_formContainer">
+					<div class="modalButtonsTop">
+					<button class="back">
+						<i class="fa-regular fa-arrow-left-long"></i> <!-- LEFT ARROW-->
+					</button>
+					<button class="close">
+						<i class="fa-regular fa-xmark"></i> <!-- CLOSE X BUTTON-->
+					</button>
+					</div>
+					<h2 id="modalTitle">Ajout photo</h2>
+					<form class="inputForm">
+						<div class="imgBlock imgColours">
+							<i class="fa-regular fa-image"></i>
+							<label id="accessFileSystemBtn">+ Ajouter photo</label>  <!-- CF file system / english 'choose file'-->
+							<input type="file" id="uploadImg" />
+							<img id="preview" />
+							<p>jpg, png : 4mo max</p>
+						</div>
+						<div id="inputSelection"> <!-- TOO MANY FLEX BOXES -- REPETITION IN CSS-->
+							<div id="formTitle">
+								<label for="modalTitle">Titre</label>
+								<input type="text" name="titre" id="titre" />
+							</div>
+							<div id="formCategory">
+								<label for="categorie">Catégorie</label>
+								<select name="categorie" id="categorie" onchange="alert('bonjour')"> <!-- add eventlister instead -->
+									<option value="0">&nbsp;</option>
+								</select>
+							</div>
+						</div>
+					</form>
+					<div class="separator"></div> <!-- REMOVED SEPARATOR AND VALIDATE BUTTON OUTSIDE OF FORM ELMS-->
+					<a type="submit" class="validButton">Valider</a>
+				</div> <!-- end of 2nd modal-->
+				</div>
+			</div>
+		</aside>
+	</div>
 	<script src="app.js" defer></script>
 	<script src="modal.js" defer></script>
 </body>
+
 </html>
