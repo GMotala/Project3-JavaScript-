@@ -35,13 +35,24 @@ html {
 }
 
 .modalPopup h2 {
-    display: flex;
+    display: none;     /* TEST FOR 'GALERIE PHOTO' TO NOT SHOW' WHEN DISPLAYING 2ND MODAL */
     justify-content: center;
     margin: 20px 0 50px 0
 }
 
-.button-container {
-font: 500 16px "Syne";
+#modalTitle {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 50px 0;
+    font-family: "Work Sans";
+    font-weight: 400;
+    /*font-size: 25px;*/
+    color: #000;
+}
+
+.button-container { 
+    display:none; /* TESTING: SET TO NONE: STYLING USED FOR MODAL 1 - AJOUTER UNE PHOTO / SAME AS VALIDER*/ 
+    font: 500 16px "Syne";
     color: #ffffff;
     border: 1px solid #1d6154;
     border-radius: 60px;
@@ -103,8 +114,7 @@ font: 500 16px "Syne";
 	display: flex; /* TESTING: initial state is 'none' */ 
 	flex-direction: column;
 	align-items: center;
-	width: 630px;
-	height: 730px;
+	height: 620px;
 	background: white;
 	border-radius: 10px;
 }
@@ -157,18 +167,11 @@ font: 500 16px "Syne";
     color: #114e4dfc;
     background: #a7a7a775;
     border-radius: 60px;
-    padding: 1Opx 50px;
+    /* padding: 1Opx 45px;*/
     margin: 20px;
+    margin-bottom: 24px;
     width: 165x;
     height: 35px;
-
-}
-
-#modalTitle {
-    font-family: "Work Sans";
-    font-weight: 400;
-     /*font-size: 25px;*/ 
-    color: #000;
 }
 
 #formTitle {
