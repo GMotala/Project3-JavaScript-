@@ -1,112 +1,122 @@
-/* const btns = document.querySelector(`.btns`);
-const token = sessionStorage.accessToken;
-const login = document.getElementById(`login`);
-const displayModal = document.querySelector(`.modifier`);
-const modalContainer = document.querySelector(`.modalOverlay`);
-// const modal = document.getElementById(`modal1`);
-const close = document.querySelectorAll(".close");
-const worksContainer = document.querySelector(`.worksContainer`);
-const delButton = document.querySelector(`.delete`);
-const addWork = document.querySelector(`.addWork`);
-let arrWorks = []; */
-
 let modal = null // will know which is the modal that is open --> see line 23 to open
 
-const openModal = function () {
-    const modal = document.getElementById('modalOverlay')
-    modal.style.display = "block"
-    // e.preventDefault()
-    // if (modal === null) return 
-    /* const target = document.querySelector(e.target.getAttribute('href'))
-    target.style.display = null
-    // hides modal - display flex takes over
-    target.removeAttribute('aria-hidden')
-    target.setAttribute('aria-modal', 'true')
-    // modal = target*/
+async function openModal() {
+    const modal = document.getElementById('modalOverlay');
+    modal.style.display = "flex";
 
-    // closes the modal by getting the overlay    
-    /* modal.addEventListener('click', closeModal)
-    modal.querySelector('js-modal-close').addEventListener('click', closeModal) // close the modal when opened */
-    // modal.querySelector('js-modal-close').addEventListener('click', stopPropogation) // stops the clicking anywhere
-} // end of open modal
+    const responseProjects = await fetch('http://localhost:5678/api/works'); // reponse is the response from the server. fetch is the request. 
+    const projectList = await responseProjects.json();
+    console.log(projectList);
+
+    /* const divWorksContainer = document.getElementById('worksContainer'); // create id galleryList to be specific
+    for (let i = 0; i < projectList.length; i++) {
+        const projectListItem = projectList[i];
+        // Creation of tags for figures
+        const figureElement = document.createElement("figure");
+        figureElement.setAttribute("class", "worksContainerFigure")
+        // Creation of tags
+        const imageElement = document.createElement("img");
+        imageElement.src = projectListItem.imageUrl;
+
+        // Attach a tag to the Gallery div
+        divWorksContainer.appendChild(figureElement);
+        figureElement.appendChild(imageElement);
+    } */
+}
+// function above is called when clicking on modifier button 
+const obj_modifier = document.getElementById("btn_modifier");
+obj_modifier.addEventListener("click", openModal);
 
 
-const closeModal = function () {
-    // e.preventDefault()
-    const modal = document.getElementById('modalOverlay')
-    modal.style.display = "none"
-    /* modal.setAttribute('aria-hidden', true)
-    modal.removeAttribute('aria-modal')
-    modal.removeEventListener('click', closeModal)
-    modal.querySelector('js-modal-close').removeEventListener('click', closeModal)
-    modal.querySelector('js-modal-close').removeEventListener('click', stopPropogation)
-    modal = null*/ 
+function addPhoto() {
+    const obj_addWork = document.getElementById("btn_addWork");
+    const obj_worksContainer = document.getElementById("modal_worksContainer");
+    const obj_formContainer = document.getElementById('modal_formContainer');
+    obj_addWork.addEventListener("click", () => {
+        obj_worksContainer.style.display = "none";
+        obj_formContainer.style.display = "flex"
+    });
 }
 
+const modal2 = document.getElementById("event-modal-close");
+modal2.addEventListener("click", closeModal);
 
-/*document.querySelector('.js-modal').forEach(a => {
-    a.addEventListener('click', openModal)
-    e.target.getAttribute('href')
-})
+function closeModal() {
+    const modal = document.getElementById("modalOverlay");    // what the close function really does above --> want modalpopup style.display to be none
+    modal.style.display = "none";
+    modal2.style.display = "none";
+}
 
-const stopPropogation = function (e) {
-    e.stopPropogation()
-}*/
+//  GO BACK
+/* if (formContainer) {
+    modalRedirection();
+    //back arrow
+    const back = document.querySelector("back");
+    const closeModal = document.querySelector("close");
 
-
-/* function showModal() {
-    e.preventDefault()
-    displayModal.addEventListener("click", function (e) {
-        modalContainer.style.display = "flex";
-        modal.style.display = `flex`;
+    back.addEventListener(`click`, () => {
+        // works container shows and form container is hidden
+        worksContainer.style.display = "flex";
+        formContainer.style.display = "none";
     });
+    // close whole modalOverlay --> make everything 'none'
+}
+else {
 } */
 
-// --- Show gallery in the modal ---
+ // DYNAMICALLY GET THE CATEGORY FOR ADDING THE PROJECT
 
-async function showWorksInModal() {
-    arrWorks = await getProjects();
+ // FETCH THE CATEGORIES FROM THE API AND MAKE THE CATEGORIES AVAILABLE --> LOOP THROUGH
+// --- Add category  ---
+async function getSelectCategory() {
+    const responseCategories = await fetch('http://localhost:5678/api/categories'); // reponse is the response from the server. fetch is the request. 
+    console.log(responseCategories);
+    const categoryList = await responseCategories.json();
+    const selectCategory = document.getElementById("categorie");
 
-    arrWorks.forEach((work) => {
-        const figureModal = document.createElement(`figure`);
-        const figureImgModal = document.createElement(`img`);
-        const editButton = document.createElement(`button`);
-        const delButton = document.createElement(`button`);
-        figureImgModal.src = work.imageUrl;
-        figureImgModal.alt = work.title;
-        editButton.innerText = `editer`;
-        editButton.classList.add(`editer`);
-        delButton.innerHTML = `<i class="fa-regular fa-trash-can"></i>`;
-        delButton.classList.add(`delete`);
-        delButton.addEventListener("click", function () {
-            confirmDelWork(work.id);  // make function elsewhere
-        });
-        worksContainer.appendChild(figureModal);
-        figureModal.append(figureImgModal, editButton, delButton);
-    });
-    showModal();
+    // 
+    for (let categoryItem of categoryList) {
+        const option = document.createElement("option");
+        option.textContent = categoryItem.name;
+        option.value = categoryItem.id;
+        selectCategory.appendChild(option);
+    }
 }
+getSelectCategory();
 
-showWorksInModal();
-// add show modal inside the showWorksInModal , in order for all functions to be shown
+// VALIDER BUTTON
+const submitButton = document.querySelector(".valid");
 
-// add photo outline --> 2nd modal
-async function addPhoto() {
+// FILE SYSTEM
+let fileHandle; // moved to global scope
+async function button() {
+    [fileHandle] = await window.showOpenFilePicker();
+    consolge.log(fileHandle.kind);
+    let fileData = fileHandle.getFile();
+    let text = await fileData.text();
+    console.log(text); // reads file you get from the browser
 
+    async function save() {
+        let stream = await fileHandle.CreateWritable();
+        await stream.write(textarea.innerText);
+        await stream.close();
+    } // allows you to have text, click save and data is replicated in local file system
 }
 
 // show include value of photo modal --> 3rd modal
 async function addPhotoValues() {
 }
 
-// event listener that calls showWorksInModal() 
-// event listener inside modal for other forms to show up
 
 
-// modal is the actual popup
-// modal is a pop managed by html / css/ js --> a rendering
-// overlay --> big one
-// modal -> the opaque ingo
 
-// create the modal in css
-// instead of using onlick in html, use the addEventListener to open and to remove event listener, and then close with eventlistener
+
+
+
+
+
+
+// improve naming --> be more specific re buttons / objects
+// to test form container, call the works container
+// for displaying photo --> use filesystem --> NOT A FETCH FUNCTION --> 
+// when no photo, button is grey, when there is a photo + text + category, button is green (3 conditions met)

@@ -9,28 +9,23 @@ html {
 }
 
 #modalOverlay {
-    /* z-index: 1;
-    display: none;
-    opacity: 0.2;*/
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
-.modifier {
+.btn_modifier {
     margin: 10px;
 }
 
 .modalPopup {
-/*display: flex;
-    justify-content: space-between;*/
     background-color: white;
     max-width: 630px;
     border: 1px solid grey;
@@ -55,3 +50,138 @@ font: 500 16px "Syne";
     background-color: #1d6154
 }
 
+#worksContainerContainer {
+    display:flex;
+    justify-content: center;
+}
+#modal_worksContainer {
+    display: none; /* TESTING: initial state is 'flex' --> for testing formContainer */
+    /* grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 7px;
+    grid-row-gap: 10px; */
+    padding: 46px 0 24px;
+    width: 420px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#modal_worksContainer img {
+    width: 100%;
+    height: 105px;
+    object-fit: cover;
+}
+
+.worksContainerFigure {
+    width: 17%;
+    margin-bottom: 40px;
+}
+
+#btn_addWork {
+    display: none; /* TESTING --> ADDED THIS PROP TO SEE MODAL2 CORRECTLY*/ 
+    font-family: "Syne";
+    color: white;
+    background: #1d6154;
+    border-radius: 60px;
+    border: none;
+    padding: 10px 50px;
+    margin: 38px 0 23px 0;
+    width: 240px;
+    text-align: center;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+
+.separator {
+    width: 420px;
+    height: 1px;
+    background: #b3b3b3;
+    margin: 47px auto 0 auto;
+}
+
+#modal_formContainer {
+	display: flex; /* TESTING: initial state is 'none' */ 
+	flex-direction: column;
+	align-items: center;
+	width: 630px;
+	height: 730px;
+	background: white;
+	border-radius: 10px;
+}
+
+.validButton {
+    font-family: "Syne";
+    color: white;
+    background: #a7a7a7;
+    border-radius: 60px;
+    border: none;
+    padding: 1Opx 50px;
+    margin: 20px;
+    width: 240px;
+    text-align: center;
+    height: 35px;
+}
+
+.modalButtonsTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* TO CORRECT */
+    align-content: flex-start;
+    flex-flow: column wrap;
+}
+
+.inputForm {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.imgBlock {
+    display: flex;
+    flex-direction: column;
+    background: #E8F1F6;
+    width: 400px;
+    height: 190px;
+    margin-bottom: 20px;
+}
+.imgColours{
+font-family: 'Syne';
+font-weight: 700;
+font-size: 14px;
+color: white;
+background-color: #1D6154;
+border: 1px solid #1D6154;
+padding: 10px 50px;
+margin : 2em auto 30px;
+width: auto;
+text-align: center;
+border-radius: 60px
+}
+
+#modalTitle {
+    font-family: "Work Sans";
+    font-weight: 400;
+     /*font-size: 25px;*/ 
+    color: #000;
+}
+
+#formTitle {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    font-family: "Work Sans";
+}
+#formCategory {
+    display: flex;
+        flex-direction: column;
+        margin: 10px;
+        height: 50px;
+        font-size: 1.2em;
+        border: none;
+        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+        font-family: "Work Sans";
+}
