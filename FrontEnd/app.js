@@ -6,8 +6,6 @@ async function getProjectList() {
     const responseCategories = await fetch('http://localhost:5678/api/categories'); // reponse is the response from the server. fetch is the request. 
     const categoryList = await responseCategories.json();
     console.log(categoryList);
-
-    // console.log(projectList[0].category);
     const gallery = document.getElementById('galleryList'); // create id galleryList to be specific
 };
 getProjectList();
@@ -108,11 +106,7 @@ hotelButton.addEventListener("click", function () {
     getProjects(filter);
 });
 
-/*for (let i = 0; i < projectList.length; i++) {
-if (buttonCategory == projectList[i].categoryId) {
-}*/
-
-// create function that will add the button via a loop
-
 
 /* ----------- THE MODALS ----------- */
+
+//
