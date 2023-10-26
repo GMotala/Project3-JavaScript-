@@ -131,15 +131,15 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin-left: 130px;
 }
 
 .gallery img {
 	width: 100%;
-
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -185,6 +185,4 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
-
-
 

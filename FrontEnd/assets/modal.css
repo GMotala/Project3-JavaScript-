@@ -25,7 +25,7 @@ html {
     margin: 10px;
 }
 
-.modalPopup {
+#modalPopup {
     background-color: white;
     max-width: 630px;
     border: 1px solid grey;
@@ -34,7 +34,7 @@ html {
     width: 100%
 }
 
-.modalPopup h2 {
+#modalPopup h2 {
     display: none;     /* TEST FOR 'GALERIE PHOTO' TO NOT SHOW' WHEN DISPLAYING 2ND MODAL */
     justify-content: center;
     margin: 20px 0 50px 0
@@ -48,17 +48,6 @@ html {
     font-weight: 400;
     /*font-size: 25px;*/
     color: #000;
-}
-
-.button-container { 
-    display:none; /* TESTING: SET TO NONE: STYLING USED FOR MODAL 1 - AJOUTER UNE PHOTO / SAME AS VALIDER*/ 
-    font: 500 16px "Syne";
-    color: #ffffff;
-    border: 1px solid #1d6154;
-    border-radius: 60px;
-    padding: 9px 46px;
-    margin-bottom: 24px;
-    background-color: #1d6154
 }
 
 #worksContainerContainer {
@@ -119,7 +108,7 @@ html {
 	border-radius: 10px;
 }
 
-.validButton {
+#validButton {
     font-family: "Syne";
     color: white;
     background: #a7a7a7;
@@ -132,13 +121,43 @@ html {
     height: 35px;
 }
 
+#validatedButton {
+    font-family: "Syne";
+    color: white;
+    background: #1d6154;
+    border-radius: 60px;
+    border: none;
+    padding: 1Opx 50px;
+    margin: 20px;
+    width: 240px;
+    text-align: center;
+    height: 35px;
+}
+
 .modalButtonsTop {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between; /* TO CORRECT TO MAKE AT OPPOSITE SIDES*/
-    align-content: flex-start;
-    flex-flow: row-reverse;
+    justify-content: space-between;
+    padding: 25px;
 }
+
+#modalBackButton {
+    border:none;
+    background-color: transparent;
+}
+
+#modalBackButton:hover{
+    cursor: pointer;
+}
+
+#modalXButton {
+    border: none;
+    background-color: transparent;
+}
+
+#modalXButton:hover {
+    cursor: pointer;
+}
+
 
 .inputForm {
     display: flex;
@@ -148,13 +167,14 @@ html {
 
 .imgBlock {
     display: flex;
-    flex-direction: column;
     background: #E8F1F6;
     width: 400px;
     height: 190px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
+    flex-direction: column;
 }
-.imgColours{
+
+.imgColours {
     text-decoration: none;
     font-family: "Syne";
     font-weight: 400;
@@ -164,33 +184,50 @@ html {
 
 #accessFileSystemBtn {
     font-family: "Syne";
-    color: #114e4dfc;
-    background: #a7a7a775;
+    color: #83848dfc;
+    background: #a7a7a78f;
     border-radius: 60px;
-    /* padding: 1Opx 45px;*/
-    margin: 20px;
-    margin-bottom: 24px;
-    width: 165x;
+    width: 170px;
     height: 35px;
+    margin-left: 110px;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 
-#formTitle {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    height: 50px;
+.inputWrapper {
+    margin-top: 10px;
+}
+.formInput{
+    margin-top: 10px;
+    height: 30px;
+    width: 100%;
     font-size: 1.2em;
-    border: none;
+    border: transparent;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
     font-family: "Work Sans";
 }
-#formCategory {
-    display: flex;
-        flex-direction: column;
-        margin: 10px;
-        height: 50px;
-        font-size: 1.2em;
-        border: none;
-        box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+#photoText {
+        color: #83848dfc;
         font-family: "Work Sans";
+    }
+
+#uploadImg{
+    display:none;
 }
+.fa-regular,
+.far {
+    font-weight: 400;
+    margin-top: 15px;
+}
+
+/* .button-container {
+    display: none;
+    // TESTING: SET TO NONE: STYLING USED FOR MODAL 1 - AJOUTER UNE PHOTO / SAME AS VALIDER
+    font: 500 16px "Syne";
+    color: #ffffff;
+    border: 1px solid #1d6154;
+    border-radius: 60px;
+    padding: 9px 46px;
+    margin-bottom: 24px;
+    background-color: #1d6154
+} */

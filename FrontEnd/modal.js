@@ -38,33 +38,28 @@ function addPhoto() {
     });
 }
 
-const modal2 = document.getElementById("event-modal-close");
+// CLOSE MODALS
+const modal2 = document.getElementById("modalXButton");
 modal2.addEventListener("click", closeModal);
 
 function closeModal() {
     const modal = document.getElementById("modalOverlay");    // what the close function really does above --> want modalpopup style.display to be none
     modal.style.display = "none";
     modal2.style.display = "none";
+    // preventDefault();
 }
 
-//  GO BACK
-/* if (formContainer) {
-    modalRedirection();
-    //back arrow
-    const back = document.querySelector("back");
-    const closeModal = document.querySelector("close");
+// MODAL 2:
+// CHANGE COLOUR OF BUTTON WHEN THE ABOVE IS CHECKED: add eventlistener to switch to green button
 
-    back.addEventListener(`click`, () => {
-        // works container shows and form container is hidden
-        worksContainer.style.display = "flex";
-        formContainer.style.display = "none";
-    });
-    // close whole modalOverlay --> make everything 'none'
+// 1.CHANGE COLOUR OF THE VALIDER BUTTON WITH EVENT LISTENER
+const modal3 = document.getElementById("modal_formContainer");
+modal3.addEventListener("click", changeValidateButtonColor)
+
+function changeValidateButtonColor() {
+    document.getElementById("validButton").style.background = "green"; // PROBLEM: BECOMING GREEN ANYWHERE I CLICK + want HEX colour
+    //  document.getElementsByClassName("validButton").setAttribute("id", "validatedButton"); // PROBLEM IS THAT IT IS NOT RECOGNISING THE CLASS FOR THE GREY BUTTON.ONLY GETTING THE GREEN ONE
 }
-else {
-} */
-
- // DYNAMICALLY GET THE CATEGORY FOR ADDING THE PROJECT
 
  // FETCH THE CATEGORIES FROM THE API AND MAKE THE CATEGORIES AVAILABLE --> LOOP THROUGH
 // --- Add category  ---
@@ -84,10 +79,26 @@ async function getSelectCategory() {
 }
 getSelectCategory();
 
-// VALIDER BUTTON
-const submitButton = document.querySelector(".valid");
+// 3 CONDITIONS FOR MODAL TO CHANGE:
+// --> text is captured, category is captured, photo is chosen
 
-// FILE SYSTEM
+    // 1.CAPTURE VALUE OF THE TITLE INPUT
+const titleInput = document.getElementById("titre").value; // DO I NEED A FUNCTION OR AN EVENT LISTENER TO DO SOMETHING WITH VALUE THAT WE HAVE CAPTURED, see next line
+const titleHeading = document.getElementById("titleHeader");
+titleHeading.addEventListener("change", ($event) => {
+        $event.preventDefault(); // to avoid the submit refreshing
+    titleHeading.textContent = $event.target.value;
+    })
+
+// 2. CAPTURE THE DROPDOWN SELECTION. NB. CATEGORIES ARE NOT YET FETCHED SO DO NOT APPEAR IN DROP DOWN
+const categorySelectList = document.getElementById("modalCategorieList"); // the list of categories
+const categoryHeading = document.getElementById("modalCategorie"); // the category title
+categorySelect.addEventListener("change", ($event) => {
+    categoryHeading.textContent = $event.target.value;
+})
+
+// 3. PHOTO IS CHOSEN ---> COVERED IN HTML LINE 107 AND IS HIDDEN. ALTERNATIVE BUTTON. "button" function has been removed from html
+// FILE SYSTEM FOR UPLOADING THE PHOTO.
 let fileHandle; // moved to global scope
 async function button() {
     [fileHandle] = await window.showOpenFilePicker();
@@ -108,15 +119,52 @@ async function addPhotoValues() {
 }
 
 
+/*
+// CREATING FORMDATA OBJECT: add event listener, then create object 
+document.addEventListener('DOMContentLoaded', () => {
+    let formData = new FormData();
+    // append the name/value key pair --> adds the html elm / file you want to send. for a file, it is a blob(not a string) + optional file name for the server
+    formData.append('name', 'value')
+
+    // add the array for all the filenames you want to send with a loop --> not done
+
+    // send to server --> create url to pass to fetch object with request to server
+    let url = 'http://www.example.com/';
+    let req = new Request({
+    url: url,
+    body: fd
+    })
+    fetch(req)
+    .then(response => response.json() )
+    .then( data => {})
+    .catch( err => {})
+})*/
+
+//  GO BACK --> ADD EVENTLISTENER, CLICK, FUNCTION IS GOING TO IDENTIFY THE ID OF MODAL1 (modalPopup ID)
+
+const modal1 = document.getElementById("modal_formContainer");
+modal1.addEventListener("click", changeModal1)
+
+function changeModal1() {
+    document.getElementById("modalPopup").style.display = ""; // 
+    //  document.getElementsByClassName("validButton").setAttribute("id", "validatedButton"); 
+}
 
 
 
 
+/* if (formContainer) {
+    modalRedirection();
+    //back arrow
+    const back = document.querySelector("back");
+    const closeModal = document.querySelector("close");
 
-
-
-
-// improve naming --> be more specific re buttons / objects
-// to test form container, call the works container
-// for displaying photo --> use filesystem --> NOT A FETCH FUNCTION --> 
-// when no photo, button is grey, when there is a photo + text + category, button is green (3 conditions met)
+    back.addEventListener(`click`, () => {
+        // works container shows and form container is hidden
+        worksContainer.style.display = "flex";
+        formContainer.style.display = "none";
+    });
+    // close whole modalOverlay --> make everything 'none'
+}
+else {
+} */

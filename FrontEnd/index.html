@@ -50,7 +50,7 @@
 				<i class="fa-solid fa-pen-to-square"></i>
 				<a href="#">Modifier</a> 
 			</div>
-			<div class="filtres">
+			<div class="filtre">
 				<nav class="buttons"></nav>
 			</div>
 			<div class="gallery"></div> <!-- fetched dynamically by JS-->
@@ -79,55 +79,49 @@
 	</footer>
 	<!-- modal-->
 	<div id="modalOverlay"> <!-- the overlay that controls the display -->
-		<aside class="modalPopup" id="modal1" aria-hidden="true"> <!-- the modal -->
-			<div class="button-container"> <!-- button to test event handler -->
-				<a href="#" id="event-modal-close">
-					X
-				</a>
-			</div>
-			<div class="modal-wrapper js-modal-stop">
-				 <!-- <span class="close"> <i class="fa-regular fa-xmark"></i></span> DELETE BECAUSE DO NOT NEED CLOSE BUTTON ON MODAL WRAPPER?? --> 
+		<aside id="modalPopup" aria-hidden="true"> <!-- the modal -->
+				<div class="modalButtonsTop">
+					<button id="modalBackButton">
+						<i class="fa-solid fa-arrow-left-long"></i> <!-- LEFT ARROW-->
+					</button>
+					<button id="modalXButton">
+						<i class="fa-solid fa-xmark"></i> <!-- CLOSE X BUTTON CLOSES BUTTON USED IN EVENT HANDLER-->
+					</button>
+				</div>
 				<h2>Galerie photo</h2>
 				<div id="worksContainerContainer">
 				<div id="modal_worksContainer"></div> <!-- fetches works dynamically-->
 				<button id="btn_addWork">Ajouter une photo</button>
 				<!-- second modal --> <!-- will contain form for 'ajout photo form' in CSS will be display:none -->
+				<div class="button-container"> <!-- I THINK THIS DOES NOTHING - DELETE FROM CSS TOO-->
+				</div>
 				<div id="modal_formContainer">
-					<div class="modalButtonsTop">
-					<button class="back">
-						<i class="fa-regular fa-arrow-left-long"></i> <!-- LEFT ARROW-->
-					</button>
-					<button class="close">
-						<i class="fa-regular fa-xmark"></i> <!-- CLOSE X BUTTON-->
-					</button>
-					</div>
 					<h2 id="modalTitle">Ajout photo</h2>
 					<form class="inputForm">
 						<div class="imgBlock imgColours">
-							<i class="fa-regular fa-image"></i>
-							<label id="accessFileSystemBtn">+ Ajouter photo</label>  <!-- CF file system / english 'choose file'-->
-							<input type="file" id="uploadImg" />
-							<img id="preview" />
-							<p>jpg, png : 4mo max</p>
+							<i class="fa-regular fa-image fa-5x" style="color: #aeb0b5;" ></i>
+							<label id="accessFileSystemBtn">+ Ajouter photo
+							<input type="file" id="uploadImg" /> <!-- This is what allows you to choose the file-->
+							</label>  <!-- CF file system / english 'choose file'-->
+							<p id="photoText">jpg, png : 4mo max</p>
 						</div>
-						<div id="inputSelection"> <!-- TOO MANY FLEX BOXES -- REPETITION IN CSS-->
-							<div id="formTitle">
-								<label for="modalTitle">Titre</label>
-								<input type="text" name="titre" id="titre" />
-							</div>
-							<div id="formCategory">
-								<label for="categorie">Catégorie</label>
-								<select name="categorie" id="categorie" onchange="alert('bonjour')"> <!-- add eventlister instead -->
-									<option value="0">&nbsp;</option>
-								</select>
-							</div>
+						<div class="inputWrapper">
+							<label for="titleHeader">Titre</label>
+							<input type="text" name="titre" id="titre" class="formInput"/>
+						</div>
+						<div class="inputWrapper">
+							<label id="modalCategorie">Catégorie</label>
+							<select name="categorie" id="modalCategorieList" class="formInput" onchange="alert('bonjour')"> <!-- add eventlister instead -->
+								<option value="0">&nbsp;</option>
+							</select>
 						</div>
 					</form>
-					<div class="separator"></div> <!-- REMOVED SEPARATOR AND VALIDATE BUTTON OUTSIDE OF FORM ELMS-->
-					<a type="submit" class="validButton">Valider</a>
+					<div class="separator"></div>
+					<a type="submit" id="validButton" value="1d6154">Valider</a>
+					<!-- <a type="submit" id="validatedButton">Valider2</a>  HTML VERSION OF GREEN BUTTON -->
+					
 				</div> <!-- end of 2nd modal-->
 				</div>
-			</div>
 		</aside>
 	</div>
 	<script src="app.js" defer></script>
