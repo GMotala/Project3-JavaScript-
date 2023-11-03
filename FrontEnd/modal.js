@@ -97,15 +97,9 @@ function validateFormInfo() {
     }
 }
 
-fileToUpload.addEventListener('change', {
-    formOK = validateFormInfo()
-})
-titleInput.addEventListener('change', {
-    formOK = validateFormInfo()
-})
-categorySelectList.addEventListener('change', {
-    formOK = validateFormInfo()
-})
+fileToUpload.addEventListener('change', validateFormInfo)
+titleInput.addEventListener('change', validateFormInfo)
+categorySelectList.addEventListener('change', validateFormInfo)
 
 function submitFormInfo() { // grabs form values(formdata) and submits
     
