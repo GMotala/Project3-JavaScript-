@@ -93,11 +93,9 @@
 				<div id="modal_worksContainer"></div> <!-- fetches works dynamically-->
 				<button id="btn_addWork">Ajouter une photo</button>
 				<!-- second modal --> <!-- will contain form for 'ajout photo form' in CSS will be display:none -->
-				<div class="button-container"> <!-- I THINK THIS DOES NOTHING - DELETE FROM CSS TOO-->
-				</div>
 				<div id="modal_formContainer">
 					<h2 id="modalTitle">Ajout photo</h2>
-					<form class="inputForm">
+					<form id="inputForm">
 						<div class="imgBlock imgColours">
 							<i class="fa-regular fa-image fa-5x" style="color: #aeb0b5;" ></i>
 							<label id="accessFileSystemBtn">+ Ajouter photo
@@ -106,12 +104,12 @@
 							<p id="photoText">jpg, png : 4mo max</p>
 						</div>
 						<div class="inputWrapper">
-							<label for="titleHeader">Titre</label>
-							<input type="text" name="titre" id="titre" class="formInput"/>
+							<label>Titre</label>
+							<input type="text" name="titre" id="titleInput" class="formInput" required/>
 						</div>
 						<div class="inputWrapper">
-							<label id="modalCategorie">Catégorie</label>
-							<select name="categorie" id="modalCategorieList" class="formInput" onchange="alert('bonjour')"> <!-- add eventlister instead -->
+							<label>Catégorie</label>
+							<select name="categorie" id="categorieSelect" class="formInput" onchange="alert('bonjour')"> <!-- add eventlister instead -->
 								<option value="0">&nbsp;</option>
 							</select>
 						</div>

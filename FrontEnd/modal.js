@@ -39,18 +39,13 @@ function addPhoto() {
 }
 
 // CLOSE MODALS
-const modal2 = document.getElementById("modalXButton");
-modal2.addEventListener("click", closeModal);
+const modalXButton = document.getElementById("modalXButton");
+modalXButton.addEventListener("click", closeModal);
 
 function closeModal() {
-    const modal = document.getElementById("modalOverlay");    // what the close function really does above --> want modalpopup style.display to be none
+    const modal = document.getElementById("modalOverlay"); // what the close function really does above --> want modalpopup style.display to be none
     modal.style.display = "none";
-    modal2.style.display = "none";
-    // preventDefault();
 }
-
-// MODAL 2:
-// CHANGE COLOUR OF BUTTON WHEN THE ABOVE IS CHECKED: add eventlistener to switch to green button
 
 // 1.CHANGE COLOUR OF THE VALIDER BUTTON WITH EVENT LISTENER
 const modal3 = document.getElementById("modal_formContainer");
@@ -58,7 +53,6 @@ modal3.addEventListener("click", changeValidateButtonColor)
 
 function changeValidateButtonColor() {
     document.getElementById("validButton").style.background = "green"; // PROBLEM: BECOMING GREEN ANYWHERE I CLICK + want HEX colour
-    //  document.getElementsByClassName("validButton").setAttribute("id", "validatedButton"); // PROBLEM IS THAT IT IS NOT RECOGNISING THE CLASS FOR THE GREY BUTTON.ONLY GETTING THE GREEN ONE
 }
 
  // FETCH THE CATEGORIES FROM THE API AND MAKE THE CATEGORIES AVAILABLE --> LOOP THROUGH
@@ -69,7 +63,6 @@ async function getSelectCategory() {
     const categoryList = await responseCategories.json();
     const selectCategory = document.getElementById("categorie");
 
-    // 
     for (let categoryItem of categoryList) {
         const option = document.createElement("option");
         option.textContent = categoryItem.name;
@@ -79,79 +72,92 @@ async function getSelectCategory() {
 }
 getSelectCategory();
 
-// 3 CONDITIONS FOR MODAL TO CHANGE:
-// --> text is captured, category is captured, photo is chosen
+// QUESTION 1: done in pieces, have not figured out yet how to tie it together
+// SOLUTION 1 FORMDATA/ FETCH: 
 
-    // 1.CAPTURE VALUE OF THE TITLE INPUT
-const titleInput = document.getElementById("titre").value; // DO I NEED A FUNCTION OR AN EVENT LISTENER TO DO SOMETHING WITH VALUE THAT WE HAVE CAPTURED, see next line
-const titleHeading = document.getElementById("titleHeader");
-titleHeading.addEventListener("change", ($event) => {
-        $event.preventDefault(); // to avoid the submit refreshing
-    titleHeading.textContent = $event.target.value;
-    })
+// get the valid button so that the form can submit with eventListener
+// 1.extract title, category and file input value
 
-// 2. CAPTURE THE DROPDOWN SELECTION. NB. CATEGORIES ARE NOT YET FETCHED SO DO NOT APPEAR IN DROP DOWN
-const categorySelectList = document.getElementById("modalCategorieList"); // the list of categories
-const categoryHeading = document.getElementById("modalCategorie"); // the category title
-categorySelect.addEventListener("change", ($event) => {
-    categoryHeading.textContent = $event.target.value;
+function validateFormInfo() {
+    const fileUpload = document.getElementById('uploadImg');
+    const fileToUpload = fileUpload.files[0];
+    const titleInput = document.getElementById("titleInput").value;
+    const categorySelectList = document.getElementById("categorieSelect").value;
+
+    // validate that you have all values from form so that button can change
+    if (fileToUpload) && (titleInput.length > 0) && (categorySelectList > 0)
+    {
+        changeValidateButtonColor()
+        const formOK = true;
+        return formOK
+    } 
+    else {
+        const formOK = false;
+        return formOk
+    }
+}
+
+fileToUpload.addEventListener('change', {
+    formOK = validateFormInfo()
+})
+titleInput.addEventListener('change', {
+    formOK = validateFormInfo()
+})
+categorySelectList.addEventListener('change', {
+    formOK = validateFormInfo()
 })
 
-// 3. PHOTO IS CHOSEN ---> COVERED IN HTML LINE 107 AND IS HIDDEN. ALTERNATIVE BUTTON. "button" function has been removed from html
-// FILE SYSTEM FOR UPLOADING THE PHOTO.
-let fileHandle; // moved to global scope
-async function button() {
-    [fileHandle] = await window.showOpenFilePicker();
-    consolge.log(fileHandle.kind);
-    let fileData = fileHandle.getFile();
-    let text = await fileData.text();
-    console.log(text); // reads file you get from the browser
-
-    async function save() {
-        let stream = await fileHandle.CreateWritable();
-        await stream.write(textarea.innerText);
-        await stream.close();
-    } // allows you to have text, click save and data is replicated in local file system
-}
-
-// show include value of photo modal --> 3rd modal
-async function addPhotoValues() {
-}
-
-
-/*
-// CREATING FORMDATA OBJECT: add event listener, then create object 
-document.addEventListener('DOMContentLoaded', () => {
+function submitFormInfo() { // grabs form values(formdata) and submits
+    
+    // create formData which will be used in payload
     let formData = new FormData();
-    // append the name/value key pair --> adds the html elm / file you want to send. for a file, it is a blob(not a string) + optional file name for the server
-    formData.append('name', 'value')
+    // gets the file, title and category to upload,  appends the value and renames it
+    formData.append('image', fileToUpload) // create the key: value pair of the file uploaded
+    formData.append('image', 'uploadedImage');
+    formData.append('title', titleInput )
+    formData.append('title', 'newTitle');
+    formData.append('category', categorySelectList)
+    formData.append('category', 'newCategory');
 
-    // add the array for all the filenames you want to send with a loop --> not done
+    // send to server with formData
+    const token = sessionStorage.getItem("token"); 
+    fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        headers: {
+            "accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: formData,
+    }).then((res) => {
+        if (res.ok) {
+            console.log('success');
+        } else {
+            throw new Error('Error status code: ' + res.status);
+        }
+    }).catch((error) => {
+        console.log(error.message);
+    });
+} // closes submitFormInfo function
+            
+// get form, then use event listener to extract form input, create payload and use it in fetch
+const formInformation = document.getElementById('inputForm');
+formInformation.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formOK = false;
+    formOK = validateFormInfo();
+    if (formOK) {
+        submitFormInfo()
+    }
+})
 
-    // send to server --> create url to pass to fetch object with request to server
-    let url = 'http://www.example.com/';
-    let req = new Request({
-    url: url,
-    body: fd
-    })
-    fetch(req)
-    .then(response => response.json() )
-    .then( data => {})
-    .catch( err => {})
-})*/
-
-//  GO BACK --> ADD EVENTLISTENER, CLICK, FUNCTION IS GOING TO IDENTIFY THE ID OF MODAL1 (modalPopup ID)
+//  GO BACK BUTTON --> ADD EVENTLISTENER, CLICK, FUNCTION IS GOING TO IDENTIFY THE ID OF MODAL1 (modalPopup ID)
 
 const modal1 = document.getElementById("modal_formContainer");
 modal1.addEventListener("click", changeModal1)
 
 function changeModal1() {
-    document.getElementById("modalPopup").style.display = ""; // 
-    //  document.getElementsByClassName("validButton").setAttribute("id", "validatedButton"); 
+    document.getElementById("modalPopup").style.display = "";
 }
-
-
-
 
 /* if (formContainer) {
     modalRedirection();
