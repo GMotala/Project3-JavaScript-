@@ -85,7 +85,7 @@ function validateFormInfo() {
     const categorySelectList = document.getElementById("categorieSelect").value;
 
     // validate that you have all values from form so that button can change
-    if (fileToUpload) && (titleInput.length > 0) && (categorySelectList > 0)
+    if (fileToUpload && titleInput.length > 0 && categorySelectList > 0)
     {
         changeValidateButtonColor()
         const formOK = true;
@@ -93,7 +93,7 @@ function validateFormInfo() {
     } 
     else {
         const formOK = false;
-        return formOk
+        return formOK
     }
 }
 
