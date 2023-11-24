@@ -47,21 +47,13 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-// 1.CHANGE COLOUR OF THE VALIDER BUTTON WITH EVENT LISTENER
-const modal3 = document.getElementById("modal_formContainer");
-modal3.addEventListener("click", changeValidateButtonColor)
-
-function changeValidateButtonColor() {
-    document.getElementById("validButton").style.background = "green"; // PROBLEM: BECOMING GREEN ANYWHERE I CLICK + want HEX colour
-}
-
  // FETCH THE CATEGORIES FROM THE API AND MAKE THE CATEGORIES AVAILABLE --> LOOP THROUGH
 // --- Add category  ---
 async function getSelectCategory() {
     const responseCategories = await fetch('http://localhost:5678/api/categories'); // reponse is the response from the server. fetch is the request. 
     console.log(responseCategories);
     const categoryList = await responseCategories.json();
-    const selectCategory = document.getElementById("categorie");
+    const selectCategory = document.getElementById("categorieSelect");
 
     for (let categoryItem of categoryList) {
         const option = document.createElement("option");
@@ -72,13 +64,37 @@ async function getSelectCategory() {
 }
 getSelectCategory();
 
-// QUESTION 1: done in pieces, have not figured out yet how to tie it together
-// SOLUTION 1 FORMDATA/ FETCH: 
+// grabbing html elm so that we can manipulate the EL --> NOT getting the VALUE here. 
+const fileUpload = document.getElementById('uploadImg');
+const titleInput = document.getElementById("titleInput")
+const categorySelectList = document.getElementById("categorieSelect")
+// 1. set event listeners to cover the case when 1 of the inputs change in html
+fileUpload.addEventListener('change', validateFormInfo)
+titleInput.addEventListener('change', validateFormInfo)
+categorySelectList.addEventListener('change', validateFormInfo)
+changeValidateButtonGrey();
+
+function changeValidateButtonGreen() {
+    const greenButton = document.getElementById("validButton")
+    greenButton.style.background = "green"
+    greenButton.disabled = false
+}
+function changeValidateButtonGrey() {
+    const greyButton = document.getElementById("validButton")
+    greyButton.style.background = "grey";
+    greyButton.disabled = true;
+}
+
+// make the click not work
+const stopPropagation = function (e) {
+    e.stopPropagation()
+}
 
 // get the valid button so that the form can submit with eventListener
 // 1.extract title, category and file input value
-
 function validateFormInfo() {
+
+    // grabs the VALUES that is input the elms(file, title, category)
     const fileUpload = document.getElementById('uploadImg');
     const fileToUpload = fileUpload.files[0];
     const titleInput = document.getElementById("titleInput").value;
@@ -87,62 +103,104 @@ function validateFormInfo() {
     // validate that you have all values from form so that button can change
     if (fileToUpload && titleInput.length > 0 && categorySelectList > 0)
     {
-        changeValidateButtonColor()
+        changeValidateButtonGreen();
         const formOK = true;
         return formOK
     } 
     else {
+        changeValidateButtonGrey();
         const formOK = false;
         return formOK
     }
 }
 
-fileToUpload.addEventListener('change', validateFormInfo)
-titleInput.addEventListener('change', validateFormInfo)
-categorySelectList.addEventListener('change', validateFormInfo)
+// if button is green, submit the info, if not, show the grey button -----------  // 16 NOV
+/*if (validateFormInfo() === changeValidateButtonGreen())
+{
+    const formInformation = document.getElementById('validButton');
+    formInformation.addEventListener('click', (e) => {
+        submitFormInfo()
+    else {
+            changeValidateButtonGrey();
+        }
+    })
+}*/
+
+// button must be enable(green) or disabled(grey)
 
 function submitFormInfo() { // grabs form values(formdata) and submits
-    
+    alert('hello')
+    const fileUpload = document.getElementById('uploadImg');
+    const fileToUpload = fileUpload.files[0];
+    const titleInput = document.getElementById("titleInput").value;
+    const categorySelectList = document.getElementById("categorieSelect").value;
     // create formData which will be used in payload
     let formData = new FormData();
     // gets the file, title and category to upload,  appends the value and renames it
     formData.append('image', fileToUpload) // create the key: value pair of the file uploaded
     formData.append('image', 'uploadedImage');
-    formData.append('title', titleInput )
+    formData.append('title', titleInput)
     formData.append('title', 'newTitle');
     formData.append('category', categorySelectList)
     formData.append('category', 'newCategory');
 
+
+    // NB 17 NOV   ADD THE  AUTHENTIFICATION STUFF
+
     // send to server with formData
-    const token = sessionStorage.getItem("token"); 
-    fetch('http://localhost:5678/api/works', {
+    const token = localStorage.getItem("token");
+    fetch('http://localhost:5678/api/works', { 
         method: "POST",
+        Authorization: `Bearer ${token}`,
         headers: {
             "accept": "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data"
         },
         body: formData,
     }).then((res) => {
         if (res.ok) {
             console.log('success');
         } else {
+            console.log('something went wrong');
             throw new Error('Error status code: ' + res.status);
         }
     }).catch((error) => {
         console.log(error.message);
-    });
-} // closes submitFormInfo function
-            
+    }); // closes submitFormInfo function
+}
+
 // get form, then use event listener to extract form input, create payload and use it in fetch
-const formInformation = document.getElementById('inputForm');
-formInformation.addEventListener('submit', (e) => {
+const formInformation = document.getElementById('validButton');
+formInformation.addEventListener('click', (e) => {
+    alert('check event listener');
     e.preventDefault();
     formOK = false;
-    formOK = validateFormInfo();
+    formOK = validateFormInfo(); // covers the validateforminfo again, but not necessary (redundant)
     if (formOK) {
         submitFormInfo()
     }
 })
+
+
+/*
+// add new work to list of works thanks to the POST + formData info
+const newWork = submitFormInfo(formData);
+// add the new work to the initial function that added all works and shows the list of all categ
+addPhoto.add(newWork);
+getSelectCategory();
+// need to show the modal with the updated values you typed --> reuse const from above
+// repeating code from above as not in the same scope: 
+const fileUpload = document.getElementById('uploadImg');
+const fileToUpload = fileUpload.files[0];
+fileToUpload = "";
+const titleInput = document.getElementById("titleInput").value;
+titleInput = "";
+const categorySelectList = document.getElementById("categorieSelect").value;
+// unfinished */
+
+
+
+
 
 //  GO BACK BUTTON --> ADD EVENTLISTENER, CLICK, FUNCTION IS GOING TO IDENTIFY THE ID OF MODAL1 (modalPopup ID)
 
@@ -168,3 +226,7 @@ function changeModal1() {
 }
 else {
 } */
+
+// submit form
+// disable button / put event listener only if form is complete --> so that form is submittable only when filled (and not before)
+// button should not be clickable before the form is complete 
